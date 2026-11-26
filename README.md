@@ -14,6 +14,7 @@ Bản cài đặt: thư mục `dist/` (Plugins → Add New → Upload Plugin).
 | `mg-bulk-deals` | Deal mua nhiều giảm giá theo số lượng, badge "Phổ biến nhất / Giá tốt nhất", áp giá vào giỏ | – |
 | `mg-solar-calc` | Tính hệ thống điện mặt trời theo hoá đơn EVN, lead, email, webhook, CSV | `[mg_solar_calc]` |
 | `mg-material-calc` | Tính gạch, giấy dán tường, tấm ốp, sàn gỗ, sơn, vật tư (keo, len chân tường...) theo nhiều phòng + dự phòng; phối nhiều sản phẩm vào giỏ cùng lúc; báo giá & lead | `[mg_material_calc id="123"]` |
+| `mg-pc-builder` | Build cấu hình PC: chọn linh kiện theo nhóm, bộ lọc, kiểm tra tương thích (socket, RAM, mainboard–case, VGA, nguồn), cấu hình gợi ý, chia sẻ / in / CSV, thêm cả bộ vào giỏ, ưu đãi Build PC, nhận tư vấn | `[mg_pc_builder]` |
 
 Nâng cấp từ bản cũ `vt-*`: kích hoạt bản `mg-*` sẽ tự tắt bản cũ và chuyển cài đặt, dữ liệu sản phẩm, lead sang tên mới.
 Shortcode cũ `[vt_solar_calc]` vẫn hoạt động.
@@ -23,6 +24,7 @@ Shortcode cũ `[vt_solar_calc]` vẫn hoạt động.
 ```bash
 node mg-material-calc/tests/engine-parity.js   # engine PHP và JS cho kết quả giống hệt nhau (3000 ca ngẫu nhiên)
 php  mg-material-calc/tests/sanity.php         # các ví dụ tính tay
+php  mg-pc-builder/tests/compat.php            # kiểm tra tương thích linh kiện PC
 ```
 
 ## Lộ trình module đề xuất cho mg-material-calc

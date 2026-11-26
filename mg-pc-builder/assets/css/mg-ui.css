@@ -1,0 +1,114 @@
+/*
+ * Migi UI – shared design tokens & components for every mg-* plugin (front-end).
+ * Tone: Manrope, warm orange gradient actions, white glass cards, soft pastel glows, roomy radii.
+ * Dark mode follows the Migi site switch: <html data-theme="dark">.
+ */
+.mg-ui {
+	--mg-font: Manrope, "Segoe UI", system-ui, -apple-system, sans-serif;
+	--mg-accent: #f5a000;
+	--mg-accent-2: #ff8a00;
+	--mg-accent-soft: color-mix(in srgb, var(--mg-accent) 12%, #fff);
+	--mg-accent-ring: color-mix(in srgb, var(--mg-accent) 28%, transparent);
+	--mg-on-accent: #fff;
+	--mg-secondary: #5b5cf0;
+	--mg-ink: #101828;
+	--mg-muted: #667085;
+	--mg-line: #e9e9f0;
+	--mg-surface: #fff;
+	--mg-soft: #f7f7fb;
+	--mg-success: #0d9488;
+	--mg-success-soft: #e6f6f4;
+	--mg-warn: #b45309;
+	--mg-warn-soft: #fff6e6;
+	--mg-danger: #dc2626;
+	--mg-danger-soft: #fdecec;
+	--mg-radius: 22px;
+	--mg-radius-md: 16px;
+	--mg-radius-sm: 13px;
+	--mg-radius-xs: 10px;
+	--mg-shadow: 0 18px 48px rgba(56, 68, 120, .10);
+	--mg-shadow-sm: 0 4px 14px rgba(56, 68, 120, .08);
+	--mg-shadow-accent: 0 8px 22px color-mix(in srgb, var(--mg-accent-2) 35%, transparent);
+	--mg-card-bg: radial-gradient(circle at 94% 0%, rgba(255, 196, 126, .22), transparent 38%), radial-gradient(circle at 0% 100%, rgba(194, 184, 255, .20), transparent 42%), rgba(255, 255, 255, .86);
+	--mg-backdrop: blur(18px) saturate(1.4);
+	--mg-gradient: linear-gradient(135deg, var(--mg-accent), var(--mg-accent-2));
+	font-family: var(--mg-font);
+	color: var(--mg-ink);
+	-webkit-font-smoothing: antialiased;
+}
+[data-theme="dark"] .mg-ui {
+	--mg-ink: #e4e7ee;
+	--mg-muted: #a2a9b7;
+	--mg-line: #262e42;
+	--mg-surface: #151a26;
+	--mg-soft: #1a2030;
+	--mg-accent-soft: color-mix(in srgb, var(--mg-accent) 16%, #151a26);
+	--mg-success-soft: rgba(13, 148, 136, .16);
+	--mg-warn-soft: rgba(245, 160, 0, .14);
+	--mg-danger-soft: rgba(220, 38, 38, .16);
+	--mg-shadow: 0 18px 48px rgba(0, 0, 0, .35);
+	--mg-shadow-sm: 0 4px 14px rgba(0, 0, 0, .3);
+	--mg-card-bg: radial-gradient(circle at 94% 0%, rgba(255, 177, 120, .10), transparent 40%), radial-gradient(circle at 0% 100%, rgba(120, 110, 255, .10), transparent 42%), rgba(17, 24, 39, .86);
+}
+.mg-ui *, .mg-ui *::before, .mg-ui *::after { box-sizing: border-box; }
+.mg-ui [hidden] { display: none !important; }
+
+/* Card */
+.mg-card { background: var(--mg-card-bg); -webkit-backdrop-filter: var(--mg-backdrop); backdrop-filter: var(--mg-backdrop); border: 1px solid var(--mg-line); border-radius: var(--mg-radius); box-shadow: var(--mg-shadow); }
+.mg-panel { background: var(--mg-surface); border: 1px solid var(--mg-line); border-radius: var(--mg-radius-md); }
+
+/* Eyebrow / badges */
+.mg-eyebrow { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; background: var(--mg-accent-soft); color: var(--mg-accent-2); font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+
+/* Buttons – reset theme button styles inside our components */
+.mg-ui .mg-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; margin: 0; padding: 0 22px; border: 1px solid transparent; border-radius: var(--mg-radius-sm); background: var(--mg-gradient); color: var(--mg-on-accent) !important; font-family: var(--mg-font); font-size: 15px; font-weight: 700; line-height: 1.2; letter-spacing: 0; text-transform: none; text-decoration: none !important; box-shadow: var(--mg-shadow-accent); cursor: pointer; transition: transform .15s ease, box-shadow .15s ease, filter .15s ease; }
+.mg-ui .mg-btn:hover { transform: translateY(-1px); filter: brightness(1.03); box-shadow: 0 12px 28px color-mix(in srgb, var(--mg-accent-2) 42%, transparent); }
+.mg-ui .mg-btn:active { transform: none; }
+.mg-ui .mg-btn:focus-visible { outline: 3px solid var(--mg-accent-ring); outline-offset: 2px; }
+.mg-ui .mg-btn[disabled], .mg-ui .mg-btn.is-loading { opacity: .65; pointer-events: none; }
+.mg-ui .mg-btn.is-loading::after { content: ""; width: 15px; height: 15px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: mg-spin .7s linear infinite; }
+.mg-ui .mg-btn--ghost { background: var(--mg-surface); border-color: color-mix(in srgb, var(--mg-accent) 55%, transparent); color: var(--mg-accent-2) !important; box-shadow: none; }
+.mg-ui .mg-btn--ghost:hover { background: var(--mg-accent-soft); box-shadow: none; }
+.mg-ui .mg-btn--quiet { background: transparent; color: var(--mg-muted) !important; box-shadow: none; }
+.mg-ui .mg-btn--quiet:hover { color: var(--mg-ink) !important; box-shadow: none; transform: none; }
+.mg-ui .mg-btn--block { width: 100%; }
+.mg-ui .mg-btn--sm { min-height: 36px; padding: 0 14px; font-size: 13px; border-radius: var(--mg-radius-xs); }
+@keyframes mg-spin { to { transform: rotate(360deg); } }
+
+/* Fields */
+.mg-ui .mg-label { display: block; margin: 0 0 6px; color: var(--mg-ink); font-size: 13px; font-weight: 600; }
+.mg-ui .mg-hint { display: block; margin-top: 5px; color: var(--mg-muted); font-size: 12px; font-weight: 500; }
+.mg-ui .mg-input, .mg-ui .mg-select { width: 100%; height: 46px; margin: 0; padding: 0 14px; border: 1px solid var(--mg-line); border-radius: var(--mg-radius-sm); background: var(--mg-surface); color: var(--mg-ink); font-family: var(--mg-font); font-size: 15px; font-weight: 600; box-shadow: none; transition: border-color .15s, box-shadow .15s; }
+.mg-ui textarea.mg-input { height: auto; min-height: 90px; padding: 12px 14px; font-weight: 500; }
+.mg-ui .mg-input::placeholder { color: color-mix(in srgb, var(--mg-muted) 70%, transparent); font-weight: 500; }
+.mg-ui .mg-input:focus, .mg-ui .mg-select:focus { border-color: var(--mg-accent); outline: none; box-shadow: 0 0 0 4px var(--mg-accent-ring); }
+.mg-ui .mg-input.is-invalid { border-color: var(--mg-danger); box-shadow: 0 0 0 4px var(--mg-danger-soft); }
+.mg-ui input[type=range] { accent-color: var(--mg-accent); }
+
+/* Segmented pills (radio / checkbox) */
+.mg-ui .mg-seg { display: flex; flex-wrap: wrap; gap: 8px; }
+.mg-ui .mg-seg label { flex: 1 1 auto; margin: 0; cursor: pointer; font-weight: 500; }
+.mg-ui .mg-seg input { position: absolute; opacity: 0; pointer-events: none; }
+.mg-ui .mg-seg span { display: flex; flex-direction: column; justify-content: center; gap: 2px; min-height: 44px; padding: 8px 14px; border: 1px solid var(--mg-line); border-radius: var(--mg-radius-sm); background: var(--mg-surface); color: var(--mg-ink); text-align: center; font-size: 14px; font-weight: 600; transition: all .15s; }
+.mg-ui .mg-seg span small { color: var(--mg-muted); font-size: 12px; font-weight: 500; }
+.mg-ui .mg-seg label:hover span { border-color: color-mix(in srgb, var(--mg-accent) 45%, var(--mg-line)); }
+.mg-ui .mg-seg input:checked + span { border-color: var(--mg-accent); background: var(--mg-accent-soft); box-shadow: inset 0 0 0 1px var(--mg-accent); }
+.mg-ui .mg-seg input:focus-visible + span { outline: 3px solid var(--mg-accent-ring); outline-offset: 2px; }
+.mg-ui .mg-seg--chips span { min-height: 32px; padding: 4px 14px; border-radius: 999px; font-size: 13px; }
+.mg-ui .mg-seg--chips input:checked + span { background: var(--mg-gradient); border-color: transparent; color: #fff; box-shadow: none; }
+
+/* Alerts */
+.mg-ui .mg-alert { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: var(--mg-radius-sm); font-size: 14px; font-weight: 500; line-height: 1.45; }
+.mg-ui .mg-alert--warn { background: var(--mg-warn-soft); color: var(--mg-warn); }
+.mg-ui .mg-alert--error { background: var(--mg-danger-soft); color: var(--mg-danger); }
+.mg-ui .mg-alert--ok { background: var(--mg-success-soft); color: var(--mg-success); }
+
+/* Stat tile */
+.mg-ui .mg-stat { display: flex; flex-direction: column; gap: 2px; padding: 14px 16px; border-radius: var(--mg-radius-md); background: var(--mg-soft); min-width: 0; }
+.mg-ui .mg-stat__label { color: var(--mg-muted); font-size: 12px; font-weight: 600; }
+.mg-ui .mg-stat__value { color: var(--mg-ink); font-size: 18px; font-weight: 800; letter-spacing: -.01em; line-height: 1.25; }
+.mg-ui .mg-stat__note { color: var(--mg-muted); font-size: 12px; font-weight: 500; }
+.mg-ui .mg-stat--accent { background: var(--mg-accent-soft); }
+.mg-ui .mg-stat--accent .mg-stat__value { color: var(--mg-accent-2); }
+
+@media (prefers-reduced-motion: reduce) { .mg-ui * { transition: none !important; animation: none !important; } }
