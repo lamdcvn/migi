@@ -1,0 +1,32 @@
+.mgbd { --mgbd-border: #dcdfe4; --mgbd-active: #2b3a55; --mgbd-save-bg: #e3f1d7; --mgbd-save: #3f6b22; margin: 6px 0 18px; width: 100%; max-width: 440px; }
+.mgbd-heading { display: flex; align-items: center; gap: 10px; font-size: .85em; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: #555; margin-bottom: 12px; }
+.mgbd-heading::before, .mgbd-heading::after { content: ""; flex: 1; height: 1px; background: var(--mgbd-border); }
+.mgbd-options { display: flex; flex-direction: column; gap: 14px; }
+.mgbd-option { position: relative; display: flex; align-items: center; gap: 12px; margin: 0; padding: 12px 14px; border: 1px solid var(--mgbd-border); border-radius: 8px; background: #fff; cursor: pointer; font-weight: normal; transition: border-color .15s, box-shadow .15s; }
+.mgbd-option:hover { border-color: #b8bec8; }
+.mgbd-option.is-selected { border: 2px solid var(--mgbd-active); padding: 11px 13px; box-shadow: 0 2px 8px rgba(43, 58, 85, .12); }
+.mgbd-option.is-disabled { opacity: .45; cursor: not-allowed; }
+.mgbd-option .mgbd-radio { margin: 0; width: 16px; height: 16px; flex: 0 0 auto; accent-color: var(--mgbd-active); }
+.mgbd-badge { position: absolute; top: -9px; right: 10px; padding: 1px 9px; border-radius: 10px; color: #fff; font-size: 11px; line-height: 16px; font-weight: 600; white-space: nowrap; }
+.mgbd-thumbs { position: relative; flex: 0 0 52px; height: 44px; display: flex; align-items: center; justify-content: center; }
+.mgbd-thumbs img { width: 38px; height: 38px; object-fit: cover; border-radius: 6px; background: #f1f2f4; border: 2px solid #fff; box-shadow: 0 1px 3px rgba(0,0,0,.15); margin: 0 !important; }
+.mgbd-thumbs-2 img:first-child { transform: translateX(6px) rotate(-8deg) scale(.9); }
+.mgbd-thumbs-2 img:last-child { transform: translateX(-6px); position: relative; z-index: 1; }
+.mgbd-thumbs-3 img { position: absolute; }
+.mgbd-thumbs-3 img:nth-child(1) { transform: translateX(-12px) rotate(-10deg) scale(.85); }
+.mgbd-thumbs-3 img:nth-child(2) { transform: translateX(12px) rotate(10deg) scale(.85); }
+.mgbd-thumbs-3 img:nth-child(3) { z-index: 1; }
+.mgbd-info { flex: 1 1 auto; display: flex; flex-direction: column; align-items: flex-start; gap: 3px; min-width: 0; }
+.mgbd-title { font-weight: 600; color: #222; line-height: 1.25; }
+.mgbd-sub { font-size: .82em; color: #777; }
+.mgbd-save { font-size: .72em; font-weight: 600; color: var(--mgbd-save); background: var(--mgbd-save-bg); border-radius: 10px; padding: 1px 8px; }
+.mgbd-each { font-size: .8em; color: #777; }
+.mgbd-prices { display: flex; flex-direction: column; align-items: flex-end; text-align: right; white-space: nowrap; }
+.mgbd-total { font-weight: 600; color: #222; }
+.mgbd-orig { font-size: .8em; color: #999; }
+.mgbd-unit-note { font-size: .9em; color: #555; margin: -6px 0 12px; }
+.mgbd-cart-save { color: #3f6b22; font-weight: 600; }
+/* Flatsome: keep the qty + add-to-cart row below the deal box */
+form.cart .mgbd + .quantity, form.cart .mgbd ~ .quantity { clear: both; }
+form.cart .mgbd { float: none; clear: both; }
+@media (max-width: 549px) { .mgbd { max-width: none; } .mgbd-option { gap: 9px; padding: 11px 10px; } .mgbd-option.is-selected { padding: 10px 9px; } }

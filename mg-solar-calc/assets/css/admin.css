@@ -1,0 +1,9 @@
+.mgsc-admin .mgsc-tab { background: #fff; border: 1px solid #c3c4c7; border-top: 0; padding: 8px 20px 16px; }
+.mgsc-admin .mgsc-repeat { margin: 12px 0; }
+.mgsc-admin .mgsc-repeat input { width: 100%; }
+.mgsc-admin .mgsc-del { color: #b32d2e; font-size: 20px; text-decoration: none; }
+.mgsc-admin .mgsc-check { display: block; margin: 4px 0; }
+.mgsc-status { display: inline-block; padding: 2px 8px; border-radius: 10px; background: #e5f2ff; color: #0a4b78; font-size: 12px; }
+.mgsc-status-won { background: #e3f1d7; color: #2e5a16; }
+.mgsc-status-lost { background: #fbe4e4; color: #8a1f1f; }
+.mgsc-status-quoted, .mgsc-status-surveyed { background: #fff4d6; color: #6b4c00; }

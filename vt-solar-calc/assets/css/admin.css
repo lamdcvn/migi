@@ -1,9 +1,0 @@
-.vtsc-admin .vtsc-tab { background: #fff; border: 1px solid #c3c4c7; border-top: 0; padding: 8px 20px 16px; }
-.vtsc-admin .vtsc-repeat { margin: 12px 0; }
-.vtsc-admin .vtsc-repeat input { width: 100%; }
-.vtsc-admin .vtsc-del { color: #b32d2e; font-size: 20px; text-decoration: none; }
-.vtsc-admin .vtsc-check { display: block; margin: 4px 0; }
-.vtsc-status { display: inline-block; padding: 2px 8px; border-radius: 10px; background: #e5f2ff; color: #0a4b78; font-size: 12px; }
-.vtsc-status-won { background: #e3f1d7; color: #2e5a16; }
-.vtsc-status-lost { background: #fbe4e4; color: #8a1f1f; }
-.vtsc-status-quoted, .vtsc-status-surveyed { background: #fff4d6; color: #6b4c00; }
