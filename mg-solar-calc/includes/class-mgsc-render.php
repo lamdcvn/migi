@@ -236,7 +236,7 @@ class MGSC_Render {
 		}
 		$in = '<p style="color:#555">Hoá đơn: <b>' . esc_html( self::money( $r['input']['bill'] ) ) . '</b> · Mái: <b>' . esc_html( self::num( $r['input']['area'], 1 ) ) . ' m²</b> · ' . esc_html( self::$regions[ $r['input']['region'] ] ) . ' · Điện ' . (int) $r['input']['phase'] . ' pha · Dùng ban ngày ' . esc_html( self::num( $r['input']['day'] ) ) . '% · ' . esc_html( self::$customers[ $r['input']['customer'] ] ) . '</p>';
 		return '<div style="font-family:Arial,sans-serif;max-width:640px;margin:auto;color:#222">'
-			. '<h2 style="color:' . esc_attr( $s['accent'] ) . '">Kết quả tính hệ thống điện mặt trời</h2>'
+			. '<h2 style="color:' . esc_attr( $s['accent'] ? $s['accent'] : '#ff8a00' ) . '">Kết quả tính hệ thống điện mặt trời</h2>'
 			. ( $lead ? '<p>Xin chào <b>' . esc_html( $lead['name'] ) . '</b>,</p>' : '' )
 			. $in . $warn
 			. '<table style="border-collapse:collapse;width:100%">' . $rows . '</table>'

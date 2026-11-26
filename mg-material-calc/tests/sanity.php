@@ -31,4 +31,12 @@ check( 'wall panels', $r['units'], 30 );
 $lam = array( 'type' => 'area', 'm2_per_unit' => 2.4, 'waste_straight' => 5 );
 $r = MGMC_Engine::calculate( $lam, array( array( 'l' => 4, 'w' => 5, 'floor' => 1 ) ), array( 'reserve' => 0 ) );
 check( 'laminate boxes', $r['units'], 9 );
+// Tile adhesive 4 kg/m², bag 25 kg: 20 m² → 80 kg → 4 bags; +10% → 88 kg → 4 bags (3.52 → 4).
+$glue = array( 'type' => 'consumable', 'rate' => 4, 'unit_size' => 25 );
+$r = MGMC_Engine::calculate( $glue, array( array( 'l' => 4, 'w' => 5, 'floor' => 1 ) ), array( 'reserve' => 10 ) );
+check( 'adhesive bags', $r['units'], 4 ); check( 'adhesive kg', $r['need'], 80 );
+// Skirting 2.4 m pieces: perimeter 18 m → 8 pieces; packs of 1.
+$skirt = array( 'type' => 'perimeter', 'piece_l' => 240, 'per_unit' => 1 );
+$r = MGMC_Engine::calculate( $skirt, array( array( 'l' => 4, 'w' => 5, 'floor' => 1 ) ), array( 'reserve' => 0 ) );
+check( 'skirting pieces', $r['units'], 8 ); check( 'skirting metres', $r['area'], 18 );
 echo $ok ? "ALL OK\n" : "SOME FAILED\n";

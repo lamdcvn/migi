@@ -8,11 +8,11 @@ const pick = a => a[Math.floor(rnd() * a.length)];
 const r2 = (a, b, d = 2) => +(a + rnd() * (b - a)).toFixed(d);
 const cases = [];
 for (let i = 0; i < 3000; i++) {
-	const type = pick(['tile', 'panel', 'wallpaper', 'area', 'paint']);
+	const type = pick(['tile', 'panel', 'wallpaper', 'area', 'paint', 'consumable', 'perimeter']);
 	const c = { type, tile_w: pick([30, 40, 60, 80, 15, 120]), tile_h: pick([30, 60, 80, 90, 120]), joint: pick([0, 2, 3]), per_unit: pick([4, 6, 8, 10, 2, 3]),
 		roll_w: pick([0.53, 0.7, 1.06]), roll_l: pick([10, 15.6, 5]), repeat: pick([0, 32, 64]),
 		panel_w: pick([40, 60, 16, 122]), panel_l: pick([290, 300, 244, 60]), m2_per_unit: pick([1.8, 2.2, 2.6]),
-		coverage: pick([8, 10, 12]), coats: pick([1, 2, 3]), unit_volume: pick([5, 18, 1]),
+		coverage: pick([8, 10, 12]), rate: pick([4, 0.5, 1.2]), unit_size: pick([25, 5, 1]), piece_l: pick([240, 300, 270]), coats: pick([1, 2, 3]), unit_volume: pick([5, 18, 1]),
 		waste_straight: pick([0, 5, 7]), waste_diagonal: pick([10, 15]), waste_herringbone: pick([15, 20]), min_reserve_unit: rnd() < 0.3, count: pick(['grid', 'area']) };
 	const rooms = Array.from({ length: 1 + Math.floor(rnd() * 4) }, (_, k) => ({ name: 'P' + k, l: r2(0, 9), w: r2(0.5, 7), h: pick([0, 2.6, 3, 3.3, 2.7]), floor: rnd() < 0.7, wall: rnd() < 0.6, ceiling: rnd() < 0.2, openings: pick([0, 1.6, 3.5, 6]) }));
 	const opt = { pattern: pick(['straight', 'diagonal', 'herringbone']), reserve: pick([0, 3, 5, 8, 10]) };

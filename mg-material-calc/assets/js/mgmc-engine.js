@@ -17,6 +17,10 @@
 		var l = f(r.l), w = f(r.w), h = f(r.h), open = f(r.openings);
 		var floor = !!r.floor, wall = !!r.wall && h > 0, ceil = !!r.ceiling;
 		var perim = 2 * (l + w);
+		if (c.type === 'perimeter') {
+			var runs = (floor ? 1 : 0) + (r.wall ? 1 : 0) + (ceil ? 1 : 0), piece = f(c.piece_l) / 100;
+			return { name: r.name || '', l: l, w: w, h: h, area: runs * perim, need: piece > 0 && l > 0 && w > 0 ? runs * Math.ceil(perim / piece - E) : 0 };
+		}
 		var wallArea = wall ? Math.max(0, perim * h - open) : 0;
 		var flatArea = (floor ? l * w : 0) + (ceil ? l * w : 0);
 		var area = flatArea + wallArea, need = 0, flats = (floor ? 1 : 0) + (ceil ? 1 : 0);
@@ -57,6 +61,9 @@
 				}
 				need = frac;
 				break;
+			case 'consumable':
+				need = area * f(c.rate);
+				break;
 			case 'paint':
 				var cov = f(c.coverage);
 				need = cov > 0 ? area * Math.max(1, f(c.coats)) / cov : 0;
@@ -69,7 +76,8 @@
 
 	function perUnit(c) {
 		switch (c.type) {
-			case 'tile': case 'panel': return Math.max(1, Math.floor(f(c.per_unit)));
+			case 'tile': case 'panel': case 'perimeter': return Math.max(1, Math.floor(f(c.per_unit)));
+			case 'consumable': return Math.max(0.01, f(c.unit_size));
 			case 'paint': return Math.max(0.1, f(c.unit_volume));
 			case 'wallpaper': return 1;
 			default: return Math.max(0.01, f(c.m2_per_unit));
@@ -81,6 +89,8 @@
 			case 'panel': return f(c.panel_w) * f(c.panel_l) / 10000 * perUnit(c);
 			case 'wallpaper': return f(c.roll_w) * f(c.roll_l);
 			case 'paint': return f(c.unit_volume) * f(c.coverage) / Math.max(1, f(c.coats));
+			case 'consumable': return f(c.rate) > 0 ? f(c.unit_size) / f(c.rate) : 0;
+			case 'perimeter': return 0;
 			default: return f(c.m2_per_unit);
 		}
 	}
@@ -93,7 +103,7 @@
 			if (res.area <= 0) { return; }
 			out.push(res); area += res.area; need += res.need;
 		});
-		var per = perUnit(c), discrete = c.type === 'tile' || c.type === 'panel';
+		var per = perUnit(c), discrete = c.type === 'tile' || c.type === 'panel' || c.type === 'perimeter';
 		var needQ = discrete ? Math.ceil(need - E) : need;
 		var reserveQ = discrete ? Math.ceil(needQ * reserve - E) : needQ * reserve;
 		var total = needQ + reserveQ;

@@ -56,7 +56,7 @@ class MGSC_Settings {
 			'email_customer'   => 'yes',
 			'webhook'          => '',
 			'packages'         => array(),
-			'accent'           => '#28a745',
+			'accent'           => '',
 		);
 	}
 
@@ -110,7 +110,7 @@ class MGSC_Settings {
 		$s['cta_url']     = isset( $post['cta_url'] ) ? esc_url_raw( wp_unslash( $post['cta_url'] ) ) : '';
 		$s['webhook']     = isset( $post['webhook'] ) ? esc_url_raw( wp_unslash( $post['webhook'] ) ) : '';
 		$s['admin_email'] = isset( $post['admin_email'] ) ? implode( ',', array_filter( array_map( 'sanitize_email', explode( ',', wp_unslash( $post['admin_email'] ) ) ) ) ) : '';
-		$s['accent']      = isset( $post['accent'] ) && sanitize_hex_color( $post['accent'] ) ? sanitize_hex_color( $post['accent'] ) : $d['accent'];
+		$s['accent']      = isset( $post['accent'] ) && sanitize_hex_color( trim( $post['accent'] ) ) ? sanitize_hex_color( trim( $post['accent'] ) ) : '';
 		foreach ( array( 'enable_types', 'enable_customer', 'require_lead', 'lead_email_req', 'lead_address', 'email_customer' ) as $k ) {
 			$s[ $k ] = empty( $post[ $k ] ) ? 'no' : 'yes';
 		}
@@ -175,9 +175,8 @@ class MGSC_Settings {
 		}
 		$s = self::get();
 		?>
-		<div class="wrap mgsc-admin">
-			<h1>Tính hệ thống điện mặt trời – Cài đặt</h1>
-			<p>Chèn công cụ vào trang bằng shortcode <code>[mg_solar_calc]</code> (dùng được trong Flatsome UX Builder qua phần tử "Shortcode" hoặc "Text").</p>
+		<div class="wrap mgsc-admin mg-admin">
+			<?php mg_core_admin_header( 'Tính điện mặt trời', 'Chèn công cụ vào trang bằng shortcode <code>[mg_solar_calc]</code> (Flatsome UX Builder: phần tử Shortcode hoặc Text).', 'dashicons-lightbulb' ); ?>
 			<form method="post">
 				<?php wp_nonce_field( 'mgsc_save', 'mgsc_nonce' ); ?>
 				<nav class="nav-tab-wrapper mgsc-tabs">
@@ -270,7 +269,7 @@ class MGSC_Settings {
 						self::field( $s, 'zalo', 'Số / link Zalo', '', 'VD: 0901234567 hoặc https://zalo.me/...' );
 						self::field( $s, 'cta_text', 'Chữ nút kêu gọi' );
 						self::field( $s, 'cta_url', 'Link nút kêu gọi', '', 'Để trống để ẩn.' );
-						self::field( $s, 'accent', 'Màu chủ đạo', '', '', 'color' );
+						self::field( $s, 'accent', 'Màu riêng cho công cụ', '', 'Mã màu dạng #ff8a00. Để trống = dùng màu chung Migi (Migi → Tổng quan).' );
 						?>
 						<tr><th><label for="mgsc_disclaimer">Ghi chú dưới kết quả</label></th><td><textarea id="mgsc_disclaimer" name="disclaimer" rows="3" class="large-text"><?php echo esc_textarea( $s['disclaimer'] ); ?></textarea></td></tr>
 					</table>

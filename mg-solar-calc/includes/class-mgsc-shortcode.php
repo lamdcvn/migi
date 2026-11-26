@@ -12,7 +12,7 @@ class MGSC_Shortcode {
 	}
 
 	public static function register_assets() {
-		wp_register_style( 'mgsc', MGSC_URL . 'assets/css/solar.css', array(), MGSC_VERSION );
+		wp_register_style( 'mgsc', MGSC_URL . 'assets/css/solar.css', array( 'mg-ui' ), MGSC_VERSION );
 		wp_register_script( 'mgsc', MGSC_URL . 'assets/js/solar.js', array( 'jquery' ), MGSC_VERSION, true );
 		wp_localize_script( 'mgsc', 'mgscData', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 	}
@@ -27,9 +27,11 @@ class MGSC_Shortcode {
 		$uid          = 'mgsc-' . $n;
 		$fixed_type   = array_key_exists( $atts['type'], MGSC_Render::$types ) ? $atts['type'] : '';
 		$require_lead = 'yes' === $s['require_lead'];
+		// '#28a745' was the 1.0 default colour: treat it as "follow the Migi accent".
+		$accent       = $s['accent'] && '#28a745' !== strtolower( $s['accent'] ) ? $s['accent'] : '';
 		ob_start();
 		?>
-		<div class="mgsc" id="<?php echo esc_attr( $uid ); ?>" style="--mgsc-accent:<?php echo esc_attr( $s['accent'] ); ?>" data-require-lead="<?php echo $require_lead ? '1' : '0'; ?>">
+		<div class="mgsc mg-ui mg-card" id="<?php echo esc_attr( $uid ); ?>"<?php echo $accent ? ' style="--mg-accent:' . esc_attr( $accent ) . ';--mg-accent-2:' . esc_attr( $accent ) . '"' : ''; ?> data-require-lead="<?php echo $require_lead ? '1' : '0'; ?>">
 			<?php if ( $atts['title'] ) : ?>
 				<h3 class="mgsc-title"><?php echo esc_html( $atts['title'] ); ?></h3>
 			<?php endif; ?>

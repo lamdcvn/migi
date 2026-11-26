@@ -93,7 +93,8 @@ class MGBD_Admin {
 			$tiers = get_option( 'mgbd_global_tiers', array() );
 		}
 		?>
-		<div id="mgbd_product_data" class="panel woocommerce_options_panel">
+		<div id="mgbd_product_data" class="panel woocommerce_options_panel mg-admin-panel">
+			<p class="mg-panel-intro"><strong>Migi · Deal số lượng</strong> – dùng cài đặt chung, tuỳ chỉnh riêng mức giảm/badge cho sản phẩm này, hoặc tắt.</p>
 			<div class="options_group">
 				<?php wp_nonce_field( 'mgbd_save_product', 'mgbd_nonce' ); ?>
 				<p class="form-field">
@@ -158,8 +159,8 @@ class MGBD_Admin {
 		$s     = MGBD_Tiers::settings();
 		$tiers = get_option( 'mgbd_global_tiers', MGBD_Tiers::default_tiers() );
 		?>
-		<div class="wrap mgbd-settings">
-			<h1>Deal số lượng (Mua nhiều giảm giá)</h1>
+		<div class="wrap mgbd-settings mg-admin">
+			<?php mg_core_admin_header( 'Deal số lượng', 'Mua nhiều giảm giá: thẻ chọn số lượng kèm badge <strong>Phổ biến nhất</strong>, <strong>Giá tốt nhất</strong>… tự áp giá vào giỏ hàng.', 'dashicons-tag' ); ?>
 			<form method="post">
 				<?php wp_nonce_field( 'mgbd_settings', 'mgbd_settings_nonce' ); ?>
 				<table class="form-table">
@@ -169,7 +170,7 @@ class MGBD_Admin {
 					<tr><th>Dòng giá mỗi sản phẩm</th><td><label><input type="checkbox" name="show_unit_note" value="1" <?php checked( 'yes', $s['show_unit_note'] ); ?>> Hiện "xx mỗi sản phẩm (giảm 20%)" dưới giá</label></td></tr>
 					<tr><th>Gộp biến thể</th><td><label><input type="checkbox" name="combine_variations" value="1" <?php checked( 'yes', $s['combine_variations'] ); ?>> Cộng dồn số lượng các biến thể (màu/size khác nhau) của cùng 1 sản phẩm để tính deal</label></td></tr>
 				</table>
-				<h2>Các mức deal mặc định</h2>
+				<h2 style="margin-top:8px">Các mức deal mặc định</h2>
 				<p class="mgbd-hint">Mức áp dụng khi số lượng trong giỏ ≥ "Mua từ". Mức cuối hiển thị dạng "3+ sản phẩm".</p>
 				<?php self::tier_table( $tiers ); ?>
 				<?php submit_button( 'Lưu cài đặt' ); ?>

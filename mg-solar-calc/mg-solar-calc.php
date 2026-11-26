@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Migi Solar Calculator – Tính hệ thống điện mặt trời
  * Description:       Công cụ tính hệ thống điện mặt trời theo hoá đơn tiền điện EVN (bậc thang), diện tích mái, khu vực, 1/3 pha, tỷ lệ dùng ban ngày. Hỗ trợ hoà lưới / hybrid có pin / độc lập, tính chi phí – tiết kiệm – hoàn vốn, biểu đồ, thu thập khách hàng tiềm năng (lead), email, webhook, xuất CSV, gợi ý gói sản phẩm WooCommerce. Shortcode: [mg_solar_calc]
- * Version:           1.0.0
+ * Version:           1.1.0
  * Author:            Migi
  * Requires at least: 6.0
  * Requires PHP:      7.4
@@ -11,7 +11,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'MGSC_VERSION', '1.0.0' );
+define( 'MGSC_VERSION', '1.1.0' );
 define( 'MGSC_FILE', __FILE__ );
 define( 'MGSC_DIR', plugin_dir_path( __FILE__ ) );
 define( 'MGSC_URL', plugin_dir_url( __FILE__ ) );

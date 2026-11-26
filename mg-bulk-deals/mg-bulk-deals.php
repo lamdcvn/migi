@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Migi Bulk Deals – Mua nhiều giảm giá
  * Description:       Bảng deal theo số lượng (mua 2 giảm 10%, mua 3+ giảm 20%...) với badge "Phổ biến nhất", "Giá tốt nhất", "Thường mua"... Tự áp giá vào giỏ hàng, mini-cart và đơn hàng. Tương thích Flatsome.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Author:            Migi
  * Requires at least: 6.0
  * Requires PHP:      7.4
@@ -13,7 +13,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'MGBD_VERSION', '1.0.0' );
+define( 'MGBD_VERSION', '1.1.0' );
 define( 'MGBD_FILE', __FILE__ );
 define( 'MGBD_DIR', plugin_dir_path( __FILE__ ) );
 define( 'MGBD_URL', plugin_dir_url( __FILE__ ) );

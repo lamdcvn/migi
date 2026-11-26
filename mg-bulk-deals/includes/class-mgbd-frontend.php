@@ -13,7 +13,7 @@ class MGBD_Frontend {
 		if ( ! is_product() ) {
 			return;
 		}
-		wp_enqueue_style( 'mgbd', MGBD_URL . 'assets/css/frontend.css', array(), MGBD_VERSION );
+		wp_enqueue_style( 'mgbd', MGBD_URL . 'assets/css/frontend.css', array( 'mg-ui' ), MGBD_VERSION );
 		wp_enqueue_script( 'mgbd', MGBD_URL . 'assets/js/frontend.js', array( 'jquery' ), MGBD_VERSION, true );
 		wp_localize_script( 'mgbd', 'mgbdData', array(
 			'currency' => array(
@@ -51,7 +51,7 @@ class MGBD_Frontend {
 		if ( ! $product || 'yes' !== $s['show_unit_note'] || ! MGBD_Tiers::for_product( $product ) ) {
 			return;
 		}
-		echo '<p class="mgbd-unit-note" style="display:none"></p>';
+		echo '<p class="mgbd-unit-note mg-ui" style="display:none"></p>';
 	}
 
 	public static function render_box() {
@@ -87,7 +87,7 @@ class MGBD_Frontend {
 		}
 		$uid = 'mgbd-' . $product->get_id();
 		?>
-		<div class="mgbd" data-tiers="<?php echo esc_attr( wp_json_encode( $json ) ); ?>" data-price="<?php echo esc_attr( $price ); ?>" data-max="<?php echo esc_attr( $max ); ?>" data-default="<?php echo esc_attr( $def ); ?>">
+		<div class="mgbd mg-ui" data-tiers="<?php echo esc_attr( wp_json_encode( $json ) ); ?>" data-price="<?php echo esc_attr( $price ); ?>" data-max="<?php echo esc_attr( $max ); ?>" data-default="<?php echo esc_attr( $def ); ?>">
 			<?php if ( $s['heading'] ) : ?>
 				<div class="mgbd-heading"><span><?php echo esc_html( $s['heading'] ); ?></span></div>
 			<?php endif; ?>

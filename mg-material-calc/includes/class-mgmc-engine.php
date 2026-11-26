@@ -13,6 +13,8 @@ defined( 'ABSPATH' ) || exit;
  *   panel_w, panel_l (cm), per_unit (panels per pack)                  – panel
  *   m2_per_unit                                                        – area (sàn gỗ, vinyl, thảm...)
  *   coverage (m²/L/coat), coats, unit_volume (L)                       – paint
+ *   rate (kg|L per m²), unit_size (kg|L per unit)                      – consumable (keo dán gạch, keo chít mạch, keo dán giấy...)
+ *   piece_l (cm), per_unit (pieces per pack)                           – perimeter (len chân tường, nẹp, phào – counted per perimeter of each ticked surface)
  *   waste_diagonal, waste_herringbone, waste_straight (%)              – pattern loss for area-based counting
  * Room: name, l, w, h (m), floor, wall, ceiling (bool), openings (m²)
  * Options: pattern (straight|diagonal|herringbone), reserve (%)
@@ -49,6 +51,18 @@ class MGMC_Engine {
 		$wall  = ! empty( $r['wall'] ) && $h > 0;
 		$ceil  = ! empty( $r['ceiling'] );
 		$perim = 2 * ( $l + $w );
+		if ( 'perimeter' === $c['type'] ) {
+			$runs  = ( $floor ? 1 : 0 ) + ( ! empty( $r['wall'] ) ? 1 : 0 ) + ( $ceil ? 1 : 0 );
+			$piece = self::f( $c['piece_l'] ) / 100;
+			return array(
+				'name' => isset( $r['name'] ) ? (string) $r['name'] : '',
+				'l'    => $l,
+				'w'    => $w,
+				'h'    => $h,
+				'area' => $runs * $perim, // Linear metres for this type.
+				'need' => $piece > 0 && $l > 0 && $w > 0 ? $runs * ceil( $perim / $piece - 1e-9 ) : 0,
+			);
+		}
 		$wall_area = $wall ? max( 0, $perim * $h - $open ) : 0;
 		$flat_area = ( $floor ? $l * $w : 0 ) + ( $ceil ? $l * $w : 0 );
 		$area      = $flat_area + $wall_area;
@@ -113,6 +127,10 @@ class MGMC_Engine {
 				$need = $fraction;
 				break;
 
+			case 'consumable':
+				$need = $area * self::f( $c['rate'] );
+				break;
+
 			case 'paint':
 				$cov  = self::f( $c['coverage'] );
 				$need = $cov > 0 ? $area * max( 1, self::f( $c['coats'] ) ) / $cov : 0;
@@ -137,7 +155,10 @@ class MGMC_Engine {
 		switch ( $c['type'] ) {
 			case 'tile':
 			case 'panel':
+			case 'perimeter':
 				return max( 1, (int) self::f( $c['per_unit'] ) );
+			case 'consumable':
+				return max( 0.01, self::f( $c['unit_size'] ) );
 			case 'paint':
 				return max( 0.1, self::f( $c['unit_volume'] ) );
 			case 'wallpaper':
@@ -158,6 +179,10 @@ class MGMC_Engine {
 				return self::f( $c['roll_w'] ) * self::f( $c['roll_l'] );
 			case 'paint':
 				return self::f( $c['unit_volume'] ) * self::f( $c['coverage'] ) / max( 1, self::f( $c['coats'] ) );
+			case 'consumable':
+				return self::f( $c['rate'] ) > 0 ? self::f( $c['unit_size'] ) / self::f( $c['rate'] ) : 0;
+			case 'perimeter':
+				return 0; // Sold by linear metre, no m² coverage.
 			default:
 				return self::f( $c['m2_per_unit'] );
 		}
@@ -183,7 +208,7 @@ class MGMC_Engine {
 			$need += $res['need'];
 		}
 		$per      = self::per_unit( $c );
-		$discrete = in_array( $c['type'], array( 'tile', 'panel' ), true );
+		$discrete = in_array( $c['type'], array( 'tile', 'panel', 'perimeter' ), true );
 		$need_q   = $discrete ? ceil( $need - $e ) : $need;
 		$reserve_q = $discrete ? ceil( $need_q * $reserve - $e ) : $need_q * $reserve;
 		$total    = $need_q + $reserve_q;

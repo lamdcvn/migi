@@ -13,6 +13,8 @@ class MGMC_Config {
 			'panel'     => array( 'label' => 'Tấm ốp (nano, PVC, lam sóng, gỗ nhựa...)', 'unit' => 'tấm', 'base' => 'tấm', 'surfaces' => array( 'wall', 'ceiling' ), 'default' => 'wall' ),
 			'area'      => array( 'label' => 'Vật liệu bán theo m² (sàn gỗ, vinyl, thảm, decal...)', 'unit' => 'hộp', 'base' => 'm²', 'surfaces' => array( 'floor' ), 'default' => 'floor' ),
 			'paint'     => array( 'label' => 'Sơn', 'unit' => 'thùng', 'base' => 'lít', 'surfaces' => array( 'wall', 'ceiling' ), 'default' => 'wall' ),
+			'consumable' => array( 'label' => 'Vật tư theo m² (keo dán gạch, keo chít mạch, keo dán giấy, lót sàn...)', 'unit' => 'bao', 'base' => 'kg', 'surfaces' => array( 'floor', 'wall' ), 'default' => 'floor' ),
+			'perimeter' => array( 'label' => 'Vật tư theo mét dài (len chân tường, nẹp, phào trần...)', 'unit' => 'thanh', 'base' => 'thanh', 'surfaces' => array( 'floor' ), 'default' => 'floor' ),
 		);
 	}
 
@@ -37,6 +39,14 @@ class MGMC_Config {
 			'auto_qty'          => 'yes',
 			'show_price_m2'     => 'yes',
 			'open_default'      => 'yes',
+			'presets'           => "Phòng khách|5|4\nPhòng ngủ|4|3,5\nBếp|3|3\nWC|2|2",
+			'quote_enabled'     => 'yes',
+			'quote_button'      => 'Nhận báo giá',
+			'quote_intro'       => 'Để lại thông tin, chúng tôi gửi báo giá chi tiết và tư vấn miễn phí trong giờ làm việc.',
+			'admin_email'       => '',
+			'email_customer'    => 'yes',
+			'webhook'           => '',
+			'hotline'           => '',
 			'note'              => 'Số lượng mang tính tham khảo. Nên mua cùng một lô (cùng mã màu/số lô) để tránh lệch màu và giữ lại phần dự phòng để sửa chữa sau này.',
 		) );
 	}
@@ -62,6 +72,11 @@ class MGMC_Config {
 			'coverage'          => 10,
 			'coats'             => 2,
 			'unit_volume'       => 5,
+			'rate'              => 4,
+			'unit_size'         => 25,
+			'base_unit'         => 'kg',
+			'piece_l'           => 240,
+			'addons'            => array(),
 			'reserve'           => '',
 			'waste_straight'    => '',
 			'waste_diagonal'    => '',
@@ -102,6 +117,8 @@ class MGMC_Config {
 			$c['surfaces'] = $allowed;
 		}
 		$c['min_reserve_unit'] = 'yes' === $c['min_reserve_unit'];
+		$c['addons']           = array_values( array_filter( array_map( 'absint', (array) $c['addons'] ) ) );
+		$c['base']             = 'consumable' === $type && $c['base_unit'] ? $c['base_unit'] : $types[ $type ]['base'];
 		return apply_filters( 'mgmc_product_config', $c, $product );
 	}
 }

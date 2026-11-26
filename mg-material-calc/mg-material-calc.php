@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Migi Material Calculator – Tính vật liệu ốp lát, dán tường
  * Description:       Khách nhập dài × rộng (× cao) của nhiều phòng, plugin tính diện tích, số viên/thùng gạch, cuộn giấy dán tường, tấm ốp, hộp sàn gỗ, thùng sơn, lượng dự phòng và tổng tiền; tự điền số lượng vào giỏ hàng WooCommerce và lưu chi tiết phòng vào đơn hàng. Shortcode: [mg_material_calc id="ID sản phẩm"]
- * Version:           1.0.0
+ * Version:           1.1.0
  * Author:            Migi
  * Requires at least: 6.0
  * Requires PHP:      7.4
@@ -13,7 +13,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'MGMC_VERSION', '1.0.0' );
+define( 'MGMC_VERSION', '1.1.0' );
 define( 'MGMC_FILE', __FILE__ );
 define( 'MGMC_DIR', plugin_dir_path( __FILE__ ) );
 define( 'MGMC_URL', plugin_dir_url( __FILE__ ) );
@@ -38,10 +38,11 @@ add_action( 'plugins_loaded', function () {
 	require_once MGMC_DIR . 'includes/class-mgmc-admin.php';
 	require_once MGMC_DIR . 'includes/class-mgmc-frontend.php';
 	require_once MGMC_DIR . 'includes/class-mgmc-cart.php';
+	require_once MGMC_DIR . 'includes/class-mgmc-quotes.php';
 
 	mg_core_register_module( 'mg-material-calc', array(
 		'name'        => 'Migi Material Calculator',
-		'description' => 'Tính gạch ốp lát, giấy dán tường, tấm ốp, sàn gỗ, sơn theo kích thước nhiều phòng + dự phòng, tự điền số lượng vào giỏ.',
+		'description' => 'Tính gạch, giấy dán tường, tấm ốp, sàn gỗ, sơn, vật tư đi kèm theo nhiều phòng + dự phòng; phối nhiều sản phẩm, báo giá, tự điền giỏ hàng.',
 		'version'     => MGMC_VERSION,
 		'settings'    => admin_url( 'admin.php?page=mg-material-calc' ),
 		'icon'        => 'dashicons-grid-view',
@@ -50,6 +51,7 @@ add_action( 'plugins_loaded', function () {
 	MGMC_Admin::init();
 	MGMC_Frontend::init();
 	MGMC_Cart::init();
+	MGMC_Quotes::init();
 } );
 
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), function ( $links ) {

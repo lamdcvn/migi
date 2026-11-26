@@ -12,8 +12,8 @@ class MGBD_Tiers {
 	public static function default_tiers() {
 		return array(
 			array( 'qty' => 1, 'discount' => 0,  'title' => '', 'subtitle' => 'Giá tiêu chuẩn', 'badge' => '',              'badge_color' => '#7a2e2e', 'is_default' => '' ),
-			array( 'qty' => 2, 'discount' => 10, 'title' => '', 'subtitle' => '',               'badge' => 'Phổ biến nhất', 'badge_color' => '#8e3b3b', 'is_default' => '' ),
-			array( 'qty' => 3, 'discount' => 20, 'title' => '', 'subtitle' => '',               'badge' => 'Giá tốt nhất',  'badge_color' => '#4c7a34', 'is_default' => 'yes' ),
+			array( 'qty' => 2, 'discount' => 10, 'title' => '', 'subtitle' => '',               'badge' => 'Phổ biến nhất', 'badge_color' => '#5b5cf0', 'is_default' => '' ),
+			array( 'qty' => 3, 'discount' => 20, 'title' => '', 'subtitle' => '',               'badge' => 'Giá tốt nhất',  'badge_color' => '#ff8a00', 'is_default' => 'yes' ),
 		);
 	}
 
