@@ -18,10 +18,20 @@ Bản cài đặt: thư mục `dist/` (Plugins → Add New → Upload Plugin).
 | `mg-material-calc` | Tính gạch, giấy dán tường, tấm ốp, sàn gỗ, sơn, vật tư (keo, len chân tường...) theo nhiều phòng + dự phòng; phối nhiều sản phẩm vào giỏ cùng lúc; báo giá & lead | `[mg_material_calc id="123"]` |
 | `mg-pc-builder` | Build cấu hình PC: chọn linh kiện theo nhóm, bộ lọc, kiểm tra tương thích (socket, RAM, mainboard–case, VGA, nguồn), cấu hình gợi ý, chia sẻ / in / CSV, thêm cả bộ vào giỏ, ưu đãi Build PC, nhận tư vấn | `[mg_pc_builder]` |
 | `mg-quote` | Báo giá chuẩn (giá web, khách tự tải PDF) & báo giá cạnh tranh (chỉ admin nhập giá); PDF A4 có logo/thông tin công ty, gửi email kèm PDF, link khách xem & đồng ý, tạo đơn hàng | – |
-| `mg-motion` | Hiệu ứng landing theo 7 lĩnh vực cho Flatsome (class trong UX Builder), nút liên hệ nổi, WordPress tối giản, trang demo /flatsome | `[mg_marquee]` `[mg_counter]` |
+| `mg-motion` | Hiệu ứng landing theo 7 lĩnh vực cho Flatsome (class trong UX Builder), nút liên hệ nổi, WordPress tối giản, trang demo /flatsome, **Kho giao diện** (cài kit Flatsome từ site.migi.vn) | `[mg_marquee]` `[mg_counter]` |
 
 Nâng cấp từ bản cũ `vt-*`: kích hoạt bản `mg-*` sẽ tự tắt bản cũ và chuyển cài đặt, dữ liệu sản phẩm, lead sang tên mới.
 Shortcode cũ `[vt_solar_calc]` vẫn hoạt động.
+
+## Flatsome / UX Builder
+
+Khi theme Flatsome đang bật, các shortcode Migi là phần tử kéo thả trong nhóm **Migi** của UX Builder (đăng ký qua `mg_core_ux_element()` trong `mg-core.php`): Tính điện mặt trời, Tính vật liệu, Build PC, Chạy chữ, Đếm số – có sẵn Advanced → Class / Visibility.
+
+Skill cho Claude: `.claude/skills/flatsome-ux-builder/` (tự nạp khi làm việc trong repo này; bản zip để tải lên claude.ai ở `dist/flatsome-ux-builder-skill.zip`):
+- `SKILL.md` – quy tắc dựng trang Flatsome (section-first, ≥ 90% phần tử gốc, tham số thật, mobile), quy trình dựng trang/kit, tạo phần tử UX Builder, Customizer, tốc độ.
+- `references/` – bảng 93 phần tử / 1.174 tham số, 465 khoá Customizer, API đăng ký phần tử, 14 mẫu section, định dạng kit, checklist tốc độ, quy ước Migi.
+- `scripts/fs_lint.py` (kiểm tra shortcode), `fs_kit.py` (tạo / kiểm tra / đóng gói kit), `fs_scaffold_element.py` (sinh code phần tử UX Builder).
+- `templates/kit/interior-luxe` – kit mẫu hoàn chỉnh.
 
 ## Kiểm thử
 
@@ -30,6 +40,8 @@ node mg-material-calc/tests/engine-parity.js   # engine PHP và JS cho kết qu�
 php  mg-material-calc/tests/sanity.php         # các ví dụ tính tay
 php  mg-pc-builder/tests/compat.php            # kiểm tra tương thích linh kiện PC
 php  mg-quote/tests/totals.php                 # tổng tiền báo giá, VAT, số tiền bằng chữ
+python3 .claude/skills/flatsome-ux-builder/scripts/fs_lint.py <file.txt>          # kiểm tra shortcode Flatsome
+python3 .claude/skills/flatsome-ux-builder/scripts/fs_kit.py check <kit-dir>       # kiểm tra kit giao diện
 ```
 
 ## Lộ trình module đề xuất cho mg-material-calc

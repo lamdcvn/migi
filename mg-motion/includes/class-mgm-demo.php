@@ -6,10 +6,32 @@ class MGM_Demo {
 
 	public static function init() {
 		add_action( 'admin_post_mgm_demo', array( __CLASS__, 'create' ) );
+		add_action( 'ux_builder_setup', array( __CLASS__, 'register_templates' ) );
 	}
 
 	public static function is_flatsome() {
 		return 'flatsome' === get_template();
+	}
+
+	/** The 7 industry landings as UX Builder templates (no images needed). */
+	public static function register_templates() {
+		if ( ! function_exists( 'ux_builder_add_template' ) ) {
+			return;
+		}
+		foreach ( MGM_Settings::presets() as $key => $p ) {
+			$c   = $p['colors'];
+			$svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200"><rect width="300" height="200" fill="' . $c[0] . '"/>'
+				. '<rect x="60" y="60" width="180" height="16" rx="8" fill="' . $c[1] . '"/><rect x="90" y="88" width="120" height="8" rx="4" fill="' . $c[2] . '" opacity=".7"/>'
+				. '<rect x="110" y="112" width="80" height="22" rx="11" fill="' . $c[1] . '"/><circle cx="40" cy="170" r="22" fill="' . $c[3] . '" opacity=".5"/></svg>';
+			ux_builder_add_template( 'mgm_landing_' . $key, array(
+				'post_types' => array( 'page' ),
+				'category'   => 'Migi · Landing',
+				'name'       => 'Landing ' . $p['label'],
+				'thumbnail'  => 'data:image/svg+xml;base64,' . base64_encode( $svg ),
+				'template'   => $p['dark'] ? 'page-transparent-header-light.php' : 'page-transparent-header.php',
+				'content'    => self::flatsome_content( $key, $p ),
+			) );
+		}
 	}
 
 	/** Flatsome UX Builder markup (shortcodes) – editable in UX Builder. */

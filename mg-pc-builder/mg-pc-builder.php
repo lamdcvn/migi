@@ -43,6 +43,16 @@ add_action( 'plugins_loaded', function () {
 		'settings'    => admin_url( 'admin.php?page=mg-pc-builder' ),
 		'icon'        => 'dashicons-desktop',
 	) );
+	mg_core_ux_element( 'mg_pc_builder', array(
+		'name'    => 'Build PC',
+		'icon'    => 'PC',
+		'info'    => '{{ title }}',
+		'options' => array(
+			'title'   => array( 'type' => 'textfield', 'heading' => 'Tiêu đề', 'default' => '', 'placeholder' => 'Theo cài đặt chung' ),
+			'presets' => array( 'type' => 'radio-buttons', 'heading' => 'Cấu hình gợi ý', 'default' => 'yes', 'options' => array( 'yes' => array( 'title' => 'Hiện' ), 'no' => array( 'title' => 'Ẩn' ) ) ),
+		),
+	) );
+
 	MGPC_Settings::init();
 	MGPC_Specs::init();
 	MGPC_Catalog::init();

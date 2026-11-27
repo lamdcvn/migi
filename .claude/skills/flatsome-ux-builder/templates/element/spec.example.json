@@ -1,0 +1,19 @@
+{
+  "tag": "mg_hotline_card",
+  "name": "Thẻ hotline",
+  "category": "Migi",
+  "prefix": "mg",
+  "text_domain": "mg-motion",
+  "info": "{{ phone }}",
+  "options": [
+    { "key": "title", "type": "textfield", "heading": "Tiêu đề", "default": "Cần tư vấn?" },
+    { "key": "phone", "type": "textfield", "heading": "Số điện thoại", "default": "0901 234 567" },
+    { "key": "style", "type": "radio-buttons", "heading": "Kiểu", "default": "solid", "options": ["solid", "outline"] },
+    { "key": "align", "type": "select", "heading": "Căn lề", "default": "left", "options": ["left", "center", "right"] },
+    { "key": "radius", "type": "slider", "heading": "Bo góc", "default": "16", "min": 0, "max": 40, "unit": "px" },
+    { "key": "bg_color", "type": "colorpicker", "heading": "Màu nền", "default": "", "format": "rgb", "alpha": true },
+    { "key": "icon", "type": "image", "heading": "Icon", "default": "" },
+    { "key": "pulse", "type": "checkbox", "heading": "Hiệu ứng nhịp đập", "default": "true" }
+  ],
+  "groups": { "Giao diện": ["style", "align", "radius", "bg_color", "pulse"] }
+}

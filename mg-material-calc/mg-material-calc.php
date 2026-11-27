@@ -48,6 +48,19 @@ add_action( 'plugins_loaded', function () {
 		'icon'        => 'dashicons-grid-view',
 	) );
 
+	mg_core_ux_element( 'mg_material_calc', array(
+		'name'    => 'Tính vật liệu',
+		'icon'    => 'm²',
+		'options' => array(
+			'id' => array(
+				'type'    => 'select',
+				'heading' => 'Sản phẩm (đã bật "Tính vật liệu")',
+				'default' => '',
+				'config'  => array( 'placeholder' => 'Chọn sản phẩm…', 'postSelect' => array( 'post_type' => array( 'product' ) ) ),
+			),
+		),
+	) );
+
 	MGMC_Admin::init();
 	MGMC_Frontend::init();
 	MGMC_Cart::init();

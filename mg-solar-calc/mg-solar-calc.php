@@ -32,6 +32,16 @@ mg_core_register_module( 'mg-solar-calc', array(
 ) );
 
 MGSC_Settings::init();
+
+mg_core_ux_element( 'mg_solar_calc', array(
+	'name'    => 'Tính điện mặt trời',
+	'icon'    => 'PV',
+	'info'    => '{{ title }}',
+	'options' => array(
+		'title' => array( 'type' => 'textfield', 'heading' => 'Tiêu đề', 'default' => '', 'placeholder' => 'Theo cài đặt chung' ),
+		'type'  => array( 'type' => 'select', 'heading' => 'Loại hệ thống', 'default' => '', 'options' => array( '' => 'Khách tự chọn', 'ongrid' => 'Hoà lưới', 'hybrid' => 'Hybrid có pin', 'offgrid' => 'Độc lập' ) ),
+	),
+) );
 MGSC_Leads::init();
 MGSC_Shortcode::init();
 

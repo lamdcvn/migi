@@ -1,0 +1,36 @@
+{
+  "id": "mg-kit-interior-luxe",
+  "name": "Nội thất Luxe",
+  "version": "1.0.0",
+  "industry": "interior",
+  "description": "Trang chủ một trang cho công ty thiết kế – thi công nội thất: hero, lợi ích, số liệu, công trình, FAQ, CTA, footer.",
+  "flatsome": ">=3.15",
+  "motion_preset": "interior",
+  "requires": ["mg-motion"],
+  "theme_mods": {
+    "color_primary": "#8a6a4f",
+    "color_secondary": "#2f3a36",
+    "color_success": "#5b7f5a",
+    "color_alert": "#b42318",
+    "button_radius": "99px",
+    "site_width": "1200",
+    "type_headings": { "font-family": "Be Vietnam Pro", "variant": "700" },
+    "type_texts": { "font-family": "Be Vietnam Pro", "variant": "regular" }
+  },
+  "pages": [
+    { "slug": "trang-chu-luxe", "title": "Trang chủ Luxe", "file": "pages/home.txt", "template": "page-transparent-header-light.php", "front": true }
+  ],
+  "blocks": [
+    { "slug": "luxe-footer", "title": "Footer Luxe", "file": "blocks/footer.txt", "theme_mod": "footer_block" }
+  ],
+  "media": {
+    "hero": { "file": "media/hero.jpg", "alt": "Phòng khách hiện đại tông gỗ" },
+    "project-1": { "file": "media/project-1.jpg", "alt": "Biệt thự Riverside" },
+    "project-2": { "file": "media/project-2.jpg", "alt": "Căn hộ Sky Park" },
+    "project-3": { "file": "media/project-3.jpg", "alt": "Văn phòng Lotus" },
+    "icon-1": { "file": "media/icon-1.jpg", "alt": "Thiết kế 3D" },
+    "icon-2": { "file": "media/icon-2.jpg", "alt": "Xưởng sản xuất" },
+    "icon-3": { "file": "media/icon-3.jpg", "alt": "Báo giá" },
+    "logo": { "file": "media/logo.jpg", "alt": "Logo Luxe" }
+  }
+}

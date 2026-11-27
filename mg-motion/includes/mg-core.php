@@ -168,4 +168,83 @@ if ( ! function_exists( 'mg_core_register_module' ) ) {
 			deactivate_plugins( $basename, true );
 		}
 	}
+
+	/* ---------- Flatsome UX Builder integration ---------- */
+
+	$GLOBALS['mg_core_ux_elements'] = array();
+
+	function mg_core_is_flatsome() {
+		return 'flatsome' === get_template();
+	}
+
+	/**
+	 * Registers a Migi shortcode as a UX Builder element (category "Migi") when Flatsome is active.
+	 * Adds Advanced → Class / Visibility; those two attributes are applied by wrapping the shortcode output.
+	 *
+	 * @param string $tag  Shortcode tag (already registered with add_shortcode()).
+	 * @param array  $args name, options (UX Builder option definitions), icon (1–2 letters for the thumbnail), info, priority,
+	 *                     self_class (true when the shortcode already applies its own "class" attribute).
+	 */
+	function mg_core_ux_element( $tag, array $args ) {
+		$GLOBALS['mg_core_ux_elements'][ $tag ] = $args;
+	}
+
+	function mg_core_ux_thumbnail( $letters ) {
+		$svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 68"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f5a000"/><stop offset="1" stop-color="#ff8a00"/></linearGradient></defs>'
+			. '<rect width="100" height="68" rx="10" fill="#fff6e8"/><rect x="30" y="12" width="40" height="40" rx="12" fill="url(#g)"/>'
+			. '<text x="50" y="39" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#fff" text-anchor="middle">' . esc_html( $letters ) . '</text>'
+			. '<rect x="34" y="57" width="32" height="4" rx="2" fill="#f5c27a"/></svg>';
+		return 'data:image/svg+xml;base64,' . base64_encode( $svg );
+	}
+
+	add_action( 'ux_builder_setup', function () {
+		if ( ! function_exists( 'add_ux_builder_shortcode' ) ) {
+			return;
+		}
+		foreach ( $GLOBALS['mg_core_ux_elements'] as $tag => $a ) {
+			$options                     = isset( $a['options'] ) ? $a['options'] : array();
+			$options['advanced_options'] = array(
+				'type'    => 'group',
+				'heading' => 'Advanced',
+				'options' => array(
+					'class'      => array( 'type' => 'textfield', 'heading' => 'Class', 'default' => '' ),
+					'visibility' => array(
+						'type'    => 'select',
+						'heading' => 'Visibility',
+						'default' => '',
+						'options' => array( '' => 'Visible', 'hidden' => 'Hidden', 'hide-for-medium' => 'Only for Desktop', 'show-for-small' => 'Only for Mobile', 'show-for-medium hide-for-small' => 'Only for Tablet', 'show-for-medium' => 'Hide for Desktop', 'hide-for-small' => 'Hide for Mobile' ),
+					),
+				),
+			);
+			add_ux_builder_shortcode( $tag, array(
+				'name'      => $a['name'],
+				'category'  => 'Migi',
+				'priority'  => isset( $a['priority'] ) ? $a['priority'] : 10,
+				'thumbnail' => mg_core_ux_thumbnail( isset( $a['icon'] ) ? $a['icon'] : 'MG' ),
+				'info'      => isset( $a['info'] ) ? $a['info'] : '',
+				'wrap'      => false,
+				'options'   => $options,
+			) );
+		}
+	} );
+
+	/** Applies Advanced → Class / Visibility to Migi shortcodes registered as elements. */
+	add_filter( 'do_shortcode_tag', function ( $output, $tag, $attr ) {
+		if ( ! isset( $GLOBALS['mg_core_ux_elements'][ $tag ] ) || ! is_array( $attr ) ) {
+			return $output;
+		}
+		$own = ! empty( $GLOBALS['mg_core_ux_elements'][ $tag ]['self_class'] ); // Shortcode applies "class" itself.
+		$cls = trim( ( ! $own && isset( $attr['class'] ) ? $attr['class'] : '' ) . ' ' . ( isset( $attr['visibility'] ) ? $attr['visibility'] : '' ) );
+		if ( '' === $cls ) {
+			return $output;
+		}
+		return '<div class="mg-ux-element ' . esc_attr( implode( ' ', array_map( 'sanitize_html_class', preg_split( '/\s+/', $cls ) ) ) ) . '">' . $output . '</div>';
+	}, 10, 3 );
+
+	/** Inside the UX Builder preview, let clicks select the element instead of operating the widget. */
+	add_action( 'ux_builder_enqueue_scripts', function ( $page = '' ) {
+		if ( 'iframe' === $page ) {
+			wp_add_inline_style( 'ux-builder-core', '.uxb-draggable > .mg-ui, .uxb-draggable > .mg-ux-element { pointer-events: none; }' );
+		}
+	} );
 }
