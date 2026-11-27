@@ -144,6 +144,7 @@
 		this.$el.on('click', '.mgmc-quote-cancel', function () { self.$el.find('[data-quote]').prop('hidden', true); });
 		this.$el.on('click', '.mgmc-quote-send', function () { self.sendQuote($(this)); });
 		this.$el.on('click', '.mgmc-print', function () { self.print(); });
+		this.$el.on('click', '.mgmc-pdf', function () { self.pdf($(this)); });
 		this.$el.on('keydown', 'input', function (e) { if (e.key === 'Enter') { e.preventDefault(); } });
 		this.$form.on('change input', 'input.qty, input[name="quantity"]', function () { if (!self.applying) { self.qtyHint(); } });
 		var $v = this.$el.closest('.variations_form');
@@ -235,7 +236,22 @@
 		} else { $g.prop('hidden', true); }
 		this.$el.find('[data-summary]').text(main.units ? main.units + ' ' + m.unit + (grand > 0 ? ' · ' + short(grand) : '') + (chosen.length ? ' (+' + chosen.length + ' vật tư)' : '') : '');
 
+		this.chosen = chosen;
+		this.$el.find('.mgmc-pdf').prop('hidden', !window.MGQ).prop('disabled', !main.units && !chosen.length);
 		if (mgmcData.autoQty && main.units) { this.applyQty(); } else { this.qtyHint(); }
+	};
+
+	/** Standard quote PDF (web prices) through Migi Quote, when installed. */
+	Calc.prototype.pdf = function ($btn) {
+		if (!window.MGQ || !this.result) { return; }
+		var m = this.meta, r = this.result, items = [];
+		var note = r.rooms.map(function (x) { return x.name + ' ' + num(x.area, 2) + ' m²'; }).join(', ');
+		if (r.units) { items.push({ id: m.product, qty: r.units, unit: m.unit, note: note + ' · dự phòng ' + num(r.reserve_pct) + '%' }); }
+		(this.chosen || []).forEach(function (l) { items.push({ id: l.a.id, qty: l.r.units, unit: l.a.unit, note: 'Vật tư đi kèm' }); });
+		$btn.addClass('is-loading');
+		window.MGQ.standard(items, { source: 'mgmc', pdf: true, note: 'Báo giá vật liệu ' + m.name + ' – tổng ' + num(r.area, 2) + ' m² thi công' })
+			.catch(function (e) { window.alert(e.message); })
+			.then(function () { $btn.removeClass('is-loading'); });
 	};
 
 	Calc.prototype.renderAddons = function (lines) {

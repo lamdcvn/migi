@@ -223,6 +223,7 @@ class MGMC_Frontend {
 						<?php if ( $meta['quote'] ) : ?>
 							<button type="button" class="mg-btn mg-btn--ghost mg-btn--sm mgmc-quote-open"><?php echo self::icon( 'doc' ); // phpcs:ignore ?> <?php echo esc_html( $s['quote_button'] ); ?></button>
 						<?php endif; ?>
+						<button type="button" class="mg-btn mg-btn--ghost mg-btn--sm mgmc-pdf" hidden><?php echo self::icon( 'doc' ); // phpcs:ignore ?> Tải báo giá PDF</button>
 						<button type="button" class="mg-btn mg-btn--quiet mg-btn--sm mgmc-print"><?php echo self::icon( 'print' ); // phpcs:ignore ?> In bảng tính</button>
 					</div>
 					<?php if ( $meta['quote'] ) : ?>

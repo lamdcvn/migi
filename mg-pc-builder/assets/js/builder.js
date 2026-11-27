@@ -211,6 +211,7 @@
 		var empty = !groups;
 		html += '<div class="mgpc-sum__actions"><button type="button" class="mg-btn mg-btn--block" data-act="cart"' + (empty ? ' disabled' : '') + '>' + icon('cart', 18) + ' Thêm cả cấu hình vào giỏ</button>' +
 			'<button type="button" class="mg-btn mg-btn--ghost mg-btn--block" data-act="buy"' + (empty ? ' disabled' : '') + '>Mua ngay</button>' +
+			(window.MGQ ? '<button type="button" class="mg-btn mg-btn--quiet mg-btn--block" data-act="quote"' + (empty ? ' disabled' : '') + '>' + icon('download', 16) + ' Tải báo giá PDF</button>' : '') +
 			(this.cfg.consult ? '<button type="button" class="mg-btn mg-btn--quiet mg-btn--block" data-act="consult">' + icon('chat', 16) + ' Nhận tư vấn cấu hình</button>' : '') + '</div>' +
 			(this.cfg.hotline ? '<p class="mgpc-sum__hotline">Hotline tư vấn <a href="tel:' + esc(this.cfg.hotline.replace(/[^0-9+]/g, '')) + '">' + esc(this.cfg.hotline) + '</a>' + (this.cfg.zalo ? ' · <a href="' + esc(this.cfg.zalo) + '" target="_blank" rel="noopener">Zalo</a>' : '') + '</p>' : '') +
 			(this.cfg.note ? '<p class="mgpc-sum__note">' + esc(this.cfg.note) + '</p>' : '');
@@ -389,6 +390,12 @@
 			this.addToCart(act === 'buy', $btn);
 		} else if (act === 'consult') {
 			this.openConsult();
+		} else if (act === 'quote' && window.MGQ) {
+			var items = this.slots.filter(function (s) { return self.build[s.key]; }).map(function (s) { return { id: self.build[s.key].item.id, qty: self.build[s.key].qty, unit: 'cái', note: s.label }; });
+			$btn.addClass('is-loading');
+			window.MGQ.standard(items, { source: 'mgpc', pdf: true, note: 'Báo giá cấu hình PC (' + items.length + ' linh kiện)' })
+				.catch(function (e) { self.toast(esc(e.message), false); })
+				.then(function () { $btn.removeClass('is-loading'); });
 		}
 	};
 

@@ -54,6 +54,12 @@ add_action( 'plugins_loaded', function () {
 	MGMC_Quotes::init();
 } );
 
+/** Sale unit of a product with the calculator enabled (used by Migi Quote). */
+function mgmc_unit_for( $product ) {
+	$c = class_exists( 'MGMC_Config' ) ? MGMC_Config::for_product( $product ) : null;
+	return $c ? $c['unit'] : '';
+}
+
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), function ( $links ) {
 	array_unshift( $links, '<a href="' . esc_url( admin_url( 'admin.php?page=mg-material-calc' ) ) . '">Cài đặt</a>' );
 	return $links;

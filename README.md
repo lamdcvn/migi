@@ -2,6 +2,8 @@
 
 Tất cả plugin dùng tiền tố `mg-`, chung menu quản trị **Migi** và chung bộ giao diện theo tone migi.vn (Manrope, cam gradient, thẻ kính mờ, nền pastel, hỗ trợ `[data-theme="dark"]`).
 
+Thư viện bên thứ ba: `mg-quote/vendor` chứa dompdf 3.1.4 (LGPL-2.1) cùng php-font-lib, php-svg-lib, html5-php, PHP-CSS-Parser (giấy phép kèm trong từng thư mục).
+
 File dùng chung – giống hệt nhau trong mọi plugin, sửa ở `mg-bulk-deals` rồi copy sang các plugin khác:
 
 - `includes/mg-core.php` – menu Migi, trang tổng quan, cài đặt giao diện chung (màu nhấn, font, hiệu ứng kính)
@@ -15,6 +17,7 @@ Bản cài đặt: thư mục `dist/` (Plugins → Add New → Upload Plugin).
 | `mg-solar-calc` | Tính hệ thống điện mặt trời theo hoá đơn EVN, lead, email, webhook, CSV | `[mg_solar_calc]` |
 | `mg-material-calc` | Tính gạch, giấy dán tường, tấm ốp, sàn gỗ, sơn, vật tư (keo, len chân tường...) theo nhiều phòng + dự phòng; phối nhiều sản phẩm vào giỏ cùng lúc; báo giá & lead | `[mg_material_calc id="123"]` |
 | `mg-pc-builder` | Build cấu hình PC: chọn linh kiện theo nhóm, bộ lọc, kiểm tra tương thích (socket, RAM, mainboard–case, VGA, nguồn), cấu hình gợi ý, chia sẻ / in / CSV, thêm cả bộ vào giỏ, ưu đãi Build PC, nhận tư vấn | `[mg_pc_builder]` |
+| `mg-quote` | Báo giá chuẩn (giá web, khách tự tải PDF) & báo giá cạnh tranh (chỉ admin nhập giá); PDF A4 có logo/thông tin công ty, gửi email kèm PDF, link khách xem & đồng ý, tạo đơn hàng | – |
 
 Nâng cấp từ bản cũ `vt-*`: kích hoạt bản `mg-*` sẽ tự tắt bản cũ và chuyển cài đặt, dữ liệu sản phẩm, lead sang tên mới.
 Shortcode cũ `[vt_solar_calc]` vẫn hoạt động.
@@ -25,6 +28,7 @@ Shortcode cũ `[vt_solar_calc]` vẫn hoạt động.
 node mg-material-calc/tests/engine-parity.js   # engine PHP và JS cho kết quả giống hệt nhau (3000 ca ngẫu nhiên)
 php  mg-material-calc/tests/sanity.php         # các ví dụ tính tay
 php  mg-pc-builder/tests/compat.php            # kiểm tra tương thích linh kiện PC
+php  mg-quote/tests/totals.php                 # tổng tiền báo giá, VAT, số tiền bằng chữ
 ```
 
 ## Lộ trình module đề xuất cho mg-material-calc
