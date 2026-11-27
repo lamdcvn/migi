@@ -18,6 +18,7 @@ Bản cài đặt: thư mục `dist/` (Plugins → Add New → Upload Plugin).
 | `mg-material-calc` | Tính gạch, giấy dán tường, tấm ốp, sàn gỗ, sơn, vật tư (keo, len chân tường...) theo nhiều phòng + dự phòng; phối nhiều sản phẩm vào giỏ cùng lúc; báo giá & lead | `[mg_material_calc id="123"]` |
 | `mg-pc-builder` | Build cấu hình PC: chọn linh kiện theo nhóm, bộ lọc, kiểm tra tương thích (socket, RAM, mainboard–case, VGA, nguồn), cấu hình gợi ý, chia sẻ / in / CSV, thêm cả bộ vào giỏ, ưu đãi Build PC, nhận tư vấn | `[mg_pc_builder]` |
 | `mg-quote` | Báo giá chuẩn (giá web, khách tự tải PDF) & báo giá cạnh tranh (chỉ admin nhập giá); PDF A4 có logo/thông tin công ty, gửi email kèm PDF, link khách xem & đồng ý, tạo đơn hàng | – |
+| `mg-motion` | Hiệu ứng landing theo 7 lĩnh vực cho Flatsome (class trong UX Builder), nút liên hệ nổi, WordPress tối giản, trang demo /flatsome | `[mg_marquee]` `[mg_counter]` |
 
 Nâng cấp từ bản cũ `vt-*`: kích hoạt bản `mg-*` sẽ tự tắt bản cũ và chuyển cài đặt, dữ liệu sản phẩm, lead sang tên mới.
 Shortcode cũ `[vt_solar_calc]` vẫn hoạt động.
